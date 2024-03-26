@@ -17,11 +17,11 @@ int addFileToWatch(char* filepath) {
   fseek(fileptr, 0, SEEK_END);
   fileCount = ftell(fileptr);
   rewind(fileptr);
-  fileContents = malloc(fileCount*8+1);
+ fileContents = malloc(fileCount);
   for (int i = 0; i < fileCount; i++ ) {
     fileContents[i] = (char) fgetc(fileptr);
   }
-  fileContents[fileCount+1] = 0;
+  fileContents[fileCount] = 0;
   fclose(fileptr);
   printf("%s\n", fileContents);
   free(fileContents);
