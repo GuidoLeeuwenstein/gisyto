@@ -2,41 +2,57 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define HASH_SIZE 255
 
-int addFileToWatch(char* filepath) {
-  char* fileContents;
-  FILE* fileptr;
+unsigned long genHash(unsigned char* str) {
+  unsigned long hash = 5261;
+  int c;
+
+  while ((c =  *str++)) {
+    hash = ((hash << 8) + hash) + c;
+  }
+
+  return hash;
+}
+
+int addFileToWatch(char *filepath) {
+  unsigned char *fileContents;
+  FILE *fileptr;
   long fileCount;
 
   fileptr = fopen(filepath, "r");
   printf("%s\n", filepath);
-  if(NULL == fileptr) {
+  if (NULL == fileptr) {
     printf("could not read file\n");
     return 1;
   }
   fseek(fileptr, 0, SEEK_END);
   fileCount = ftell(fileptr);
   rewind(fileptr);
- fileContents = malloc(fileCount);
-  for (int i = 0; i < fileCount; i++ ) {
-    fileContents[i] = (char) fgetc(fileptr);
+  fileContents = malloc(fileCount);
+  for (int i = 0; i < fileCount; i++) {
+    fileContents[i] = (char)fgetc(fileptr);
   }
   fileContents[fileCount] = 0;
   fclose(fileptr);
-  printf("%s\n", fileContents);
+
+  unsigned long hash = genHash(fileContents);
+  printf("%lx\n",  hash);
+
+
   free(fileContents);
 
   return 0;
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
   if (1 == argc) {
     printf("Not enough arguments given: %s\n", *argv);
     return 2;
   }
 
   if (3 == argc) {
-    if(0 == strcmp("watch", argv[1])) {
+    if (0 == strcmp("watch", argv[1])) {
       return addFileToWatch(argv[2]);
     } else {
       printf("argument was not recognized: %s\n", argv[1]);
