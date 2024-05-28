@@ -1,6 +1,33 @@
 #include <stdio.h>
 #include <string.h>
 
+typedef struct {
+  char filePath[sizeof(char) * 4096];
+  char *dataBlob;
+  long dataCreated;
+  long dateLastUpdated;
+} LocFile;
+
+int addLocalFileToBuffer() {
+  printf("Not yet inplemented\n");
+  return 1;
+};
+
+int sync() {
+  printf("Not yet inplemented\n");
+  return 1;
+};
+
+int download() {
+  printf("Not yet inplemented\n");
+  return 1;
+};
+
+int upload() {
+  printf("Not yet inplemented\n");
+  return 1;
+};
+
 int main(int argc, char *argv[]) {
   if (1 == argc) {
     printf("No arguments supplied\n");
