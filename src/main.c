@@ -3,10 +3,19 @@
 
 typedef struct {
   char filePath[sizeof(char) * 4096];
-  char *dataBlob;
+  unsigned long long hash;
   long dataCreated;
   long dateLastUpdated;
 } LocFile;
+
+unsigned long long genHash(char *contents) {
+  unsigned long long hash = 4268;
+  int c;
+  while ((c = *contents++)) {
+    hash = (hash << 4) + hash * c;
+  }
+  return hash;
+}
 
 int addLocalFileToBuffer() {
   printf("Not yet inplemented\n");
@@ -27,6 +36,11 @@ int upload() {
   printf("Not yet inplemented\n");
   return 1;
 };
+
+int load() {
+  printf("Not yet inplemented\n");
+  return 1;
+}
 
 int main(int argc, char *argv[]) {
   if (1 == argc) {
