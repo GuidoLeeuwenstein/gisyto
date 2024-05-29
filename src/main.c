@@ -59,4 +59,8 @@ int main(int argc, char *argv[]) {
     printf("You send add which is not yet implemented\n");
     return 1;
   };
+  if (0 == strcmp(argv[1], "init")) {
+    printf("You send init which is not yet implemented\n");
+    return 1;
+  }
 }
